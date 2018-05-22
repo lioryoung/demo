@@ -1,0 +1,152 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" th:href="@{~/css/amazeui.min.css}" />
+    <link rel="stylesheet" th:href="@{~/css/admin.css}">
+    <link rel="stylesheet" th:href="@{~/css/app.css}">
+    <link rel="stylesheet" th:href="@{~/css/materialize.min.css}">
+    <script th:src="@{~/js/echarts.min.js}"></script>
+    <script th:src="@{~/js/jquery.min.js}"></script>
+    <script th:src="@{~/js/amazeui.min.js}"></script>
+    <script th:src="@{~/js/app.js}"></script>
+    <script th:src="@{~/js/materialize.min.js}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body data-type="chart">
+
+
+<header class="am-topbar am-topbar-inverse admin-header">
+    <div class="am-topbar-brand">
+        <a href="javascript:;" class="tpl-logo">
+            <img src="../img/food.png" alt="" style="width: 90px;height: 90px">
+        </a>
+    </div>
+    <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+    </div>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+
+</header>
+
+
+
+
+
+<div class="tpl-page-container tpl-page-header-fixed">
+
+
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-title">
+            功能导航
+        </div>
+        <div class="tpl-left-nav-list">
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="http://localhost:8080/index" class="nav-link">
+                        <i class="material-icons">menu</i>
+                        <span>菜单</span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item">
+                    <a href="#" class="nav-link tpl-left-nav-link-list">
+                        <i class="material-icons">add_shopping_cart</i>
+                        <span>购物车</span>
+                    </a>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="http://localhost:8080/order" class="nav-link tpl-left-nav-link-list">
+                        <i class="material-icons">receipt</i>
+                        <span>我的订单</span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item">
+                    <a href="http://localhost:8080/deliverOrder" class="nav-link tpl-left-nav-link-list ">
+                        <i class="material-icons">directions_car</i>
+                        <span>我要配送</span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item">
+                    <a href="http://localhost:8080/person" class="nav-link tpl-left-nav-link-list">
+                        <i class="material-icons">person</i>
+                        <span>个人中心</span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item">
+                    <a href="http://localhost:8080/comment" class="nav-link tpl-left-nav-link-list   active">
+                        <i class="material-icons">border_color</i>
+                        <span>留言板</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="tpl-content-wrapper">
+        <div class="tpl-content-page-title">
+            评论墙
+        </div>
+        <ol class="am-breadcrumb">
+            <li><a href="#" class="am-icon-home">首页</a></li>
+            <li class="am-active">吐槽菜品</li>
+        </ol>
+        <div class="row">
+            <div class="am-u-lg-6 am-u-md-6 am-u-sm-12">
+                <div class="card-panel">
+                    <ul class="am-comments-list am-comments-list-flip">
+                        <th:block th:each="indent:${commentList}">
+                        <li class="am-comment">
+                            <article class="am-comment">
+                                <div class="am-comment-main">
+                                    <header class="am-comment-hd">
+                                        <!--<h3 class="am-comment-title">评论标题</h3>-->
+                                        <div class="am-comment-meta">
+                                            <a href="#link-to-user" class="am-comment-author" th:text="${indent.getIndent().getUser().getName()}">某人</a>
+                                            评论于 <span th:text="${indent.getIndent().getDate()}">2014-7-12 15:30</span> <span style="font-size: 12px ;margin-left: 10%" th:text="${indent.getFood().getName()}">冰激凌</span><br>
+                                        </div>
+                                    </header>
+
+                                    <div class="am-comment-bd">
+
+                                        <span style="font-size: 16px" th:text="${indent.getComment()}">冰激凌很棒呢！！！</span>
+                                    </div>
+                                </div>
+                            </article>
+                        </li>
+                        </th:block>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+</body>
+<script>
+
+
+</script>
+</html>

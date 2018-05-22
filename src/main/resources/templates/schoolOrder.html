@@ -1,0 +1,197 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" th:href="@{css/amazeui.min.css}" />
+    <link rel="stylesheet" th:href="@{css/admin.css}">
+    <link rel="stylesheet" th:href="@{css/app.css}">
+    <link rel="stylesheet" th:href="@{css/materialize.min.css}">
+    <script th:src="@{js/echarts.min.js}"></script>
+    <script th:src="@{js/jquery.min.js}"></script>
+    <script th:src="@{js/amazeui.min.js}"></script>
+    <script th:src="@{js/app.js}"></script>
+    <script th:src="@{js/materialize.min.js}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body data-type="chart">
+
+
+<header class="am-topbar am-topbar-inverse admin-header">
+    <div class="am-topbar-brand">
+        <a href="javascript:;" class="tpl-logo">
+            <img src="img/food.png" alt="" style="width: 90px;height: 90px">
+        </a>
+    </div>
+    <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+    </div>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+
+</header>
+
+
+
+
+
+<div class="tpl-page-container tpl-page-header-fixed">
+
+
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-title">
+            功能导航
+        </div>
+        <div class="tpl-left-nav-list">
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="material-icons">star</i>
+                        <span>
+                            待确认订单
+                        </span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item">
+                    <a href="http://localhost:8080/studeliverManager" class="nav-link tpl-left-nav-link-list ">
+                        <i class="material-icons">book</i>
+                        <span>学生配送订单</span>
+                    </a>
+                </li>
+
+
+                <li class="tpl-left-nav-item">
+                    <a href="http://localhost:8080/foodmanager" class="nav-link tpl-left-nav-link-list">
+                        <i class="material-icons">device_hub</i>
+                        <span>菜品管理</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="tpl-content-wrapper">
+        <div class="tpl-content-page-title">
+            所有订单
+        </div>
+        <ol class="am-breadcrumb">
+            <li><a href="#" >首页</a></li>
+            <li class="am-active">所有订单</li>
+        </ol>
+        <div class="tpl-portlet-components">
+            <div class="portlet-title">
+                <div class="caption font-green bold">
+                    <span class="am-icon-code"></span> 所有订单
+                </div>
+            </div>
+            <div class="tpl-block">
+                <!--此部分数据请在 js文件夹下中的 app.js 中的 “百度图表A” 处修改数据 插件使用的是 百度echarts-->
+                <table class="am-table" style="font-size: 16px" id="mytable">
+                    <thead>
+                    <tr>
+                        <th>订单编号</th>
+                        <th>实付金额</th>
+                        <th>时间</th>
+                        <th>
+                            <select data-am-selected id="mytype" onchange="change()">
+                                <option value="已完成">已完成</option>
+                                <option value="正在配送" selected>正在配送</option>
+                                <option value="待确认">待确认</option>
+                            </select>
+                        </th>
+                        <th>
+                            详情
+                        </th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="indent:${schoolOrderList}">
+                    <tr>
+
+                        <td style="vertical-align: middle"><span th:text="${indent.getId()}">201805092212</span></td>
+                        <td style="vertical-align: middle" ><span style="color: black" th:text="${indent.getSumPrice()}">20</span></td>
+                        <td style="vertical-align: middle"><span th:text="${indent.getDate()}">2018-05-01 12:12:56</span></td>
+                        <td style="vertical-align: middle">
+                            <div th:switch="${indent.getState()}">
+                                <div th:case="1" ><span style="color: black" th:id="${'comfirm'+indent.getId()}">待确认</span></div>
+                                <div th:case="2" ><span style="color: black">正在安排配送</span></div>
+                                <div th:case="3" ><span style="color: black">已完成</span></div>
+                            </div>
+                        </td>
+                        <td style="vertical-align: middle"><a th:href="${'http://localhost:8080/schoolorderdes/'+indent.getId()}">订单详情</a></td>
+                        <td style="vertical-align: middle">
+                            <div th:switch="${indent.getState()}">
+                                <div th:case="1" ><a onclick="finish(this)" th:id="${indent.getId()}">确认订单</a></div>
+                                <div th:case="2" ></div>
+                                <div th:case="3" ></div>
+                            </div>
+                        </td>
+                    </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+
+</body>
+<script>
+    function change() {
+        let proAreaCode =$("#mytype").val();
+
+        let tb = document.getElementById('mytable');    // table 的 id
+        let rows = tb.rows;                           // 获取表格所有行
+        for(let i = 1; i<rows.length; i++ ){
+            if(rows[i].cells[3].innerText==proAreaCode){
+                rows[i].style.display="";
+
+            }else {
+                rows[i].style.display="none";
+            }
+
+
+        }
+    }
+    function finish(myself) {
+        let id=myself.id;
+        $.post("/managerComfire",
+            {
+                id:id
+            },
+            function(data){
+                alert("已确认");
+                let div1=document.getElementById(id);
+                let div2=document.getElementById("comfirm"+id);
+                div1.innerHTML="";
+                div2.innerHTML="正在安排配送";
+            });
+
+    }
+</script>
+</html>

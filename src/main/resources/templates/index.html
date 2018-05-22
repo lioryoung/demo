@@ -1,0 +1,215 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" th:href="@{css/amazeui.min.css}" />
+    <link rel="stylesheet" th:href="@{css/admin.css}">
+    <link rel="stylesheet" th:href="@{css/app.css}">
+    <link rel="stylesheet" th:href="@{css/materialize.min.css}">
+    <script th:src="@{js/echarts.min.js}"></script>
+    <script th:src="@{js/jquery.min.js}"></script>
+    <script th:src="@{js/amazeui.min.js}"></script>
+    <script th:src="@{js/app.js}"></script>
+    <script th:src="@{js/materialize.min.js}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body data-type="index">
+
+
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <a href="javascript:;" class="tpl-logo">
+                <img src="img/food.png" alt="" style="width: 90px;height: 90px">
+            </a>
+        </div>
+        <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+        </div>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+
+    </header>
+
+
+
+
+
+
+
+    <div class="tpl-page-container tpl-page-header-fixed">
+
+
+        <div class="tpl-left-nav tpl-left-nav-hover">
+            <div class="tpl-left-nav-title">
+                功能导航
+            </div>
+            <div class="tpl-left-nav-list">
+                <ul class="tpl-left-nav-menu">
+                    <li class="tpl-left-nav-item">
+                        <a href="#" class="nav-link active">
+                            <i class="material-icons">menu</i>
+                            <span>菜单</span>
+                        </a>
+                    </li>
+                    <li class="tpl-left-nav-item">
+                        <a href="http://localhost:8080/cart" class="nav-link tpl-left-nav-link-list">
+                            <i class="material-icons">add_shopping_cart</i>
+                            <span>购物车</span>
+                        </a>
+                    </li>
+
+                    <li class="tpl-left-nav-item">
+                        <a href="http://localhost:8080/order" class="nav-link tpl-left-nav-link-list">
+                            <i class="material-icons">receipt</i>
+                            <span>我的订单</span>
+                        </a>
+                    </li>
+                    <li class="tpl-left-nav-item">
+                        <a href="http://localhost:8080/pin" class="nav-link tpl-left-nav-link-list">
+                            <i class="material-icons">accessibility</i>
+                            <span>我要约饭</span>
+                        </a>
+                    </li>
+                    <li class="tpl-left-nav-item">
+                        <a href="http://localhost:8080/deliverOrder" class="nav-link tpl-left-nav-link-list">
+                            <i class="material-icons">directions_car</i>
+                            <span>我要配送</span>
+                        </a>
+                    </li>
+                    <li class="tpl-left-nav-item">
+                        <a href="http://localhost:8080/person" class="nav-link tpl-left-nav-link-list">
+                            <i class="material-icons">person</i>
+                            <span>个人中心</span>
+                        </a>
+                    </li>
+                    <li class="tpl-left-nav-item">
+                        <a href="http://localhost:8080/comment" class="nav-link tpl-left-nav-link-list ">
+                            <i class="material-icons">border_color</i>
+                            <span>留言板</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+        <div class="tpl-content-wrapper">
+            <div class="tpl-content-page-title">
+                美食餐厅欢迎你
+            </div>
+            <ol class="am-breadcrumb">
+                <li><a href="#">首页</a></li>
+                <li class="am-active">菜单</li>
+            </ol>
+            <div class="tpl-content-scope">
+                <div class="note note-info">
+                    <h3>校园订餐为同学带来便利
+                        <span class="close" data-close="note"></span>
+                    </h3>
+                    <p> 本餐厅提供了大量可口安全卫生的饭菜供同学们品尝。</p>
+                    <p><span class="label label-danger">提示:</span>记得在吃完饭菜后给我们好评哦！
+                    </p>
+                </div>
+            </div>
+
+            <th:block th:each="food:${foodList}">
+
+                <div class="am-u-lg-3 am-u-md-6 am-u-sm-12">
+                    <div class="card">
+                        <div class="card-image">
+                            <img th:src="@{${food.getImage()}}">
+                        </div>
+                        <div class="card-content">
+                            <p ><span th:text="${food.getName()}">冰激凌</span>:<span th:id="${'money'+food.getId()}" th:text="${food.getPrice()}">10</span>元</p>
+                        </div>
+                        <div class="card-action">
+                            <a class="btn-floating blue" style="margin-left: 40%;" th:id="${'re'+food.getId()}" onclick="reduce(this)"> <i class="material-icons">remove</i></a>
+                            <span th:id="${'count'+food.getId()}">0</span>
+                            <a class="btn-floating red" th:id="${'add'+food.getId()}" onclick="add(this)"> <i class="material-icons">add</i></a>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+
+        </div>
+
+    </div>
+    <div class="row">
+
+    </div>
+
+    <div style="position:fixed; bottom:0;">
+        <div style="width: 200px;height: 60px;background: white;margin-bottom: 20px;border-top-right-radius:10px;border-bottom-right-radius:10px">
+            <div style="width: 60%;height: 100%;float: left;text-align: center;line-height: 60px"><span id="sum">0</span>元</div>
+            <div style="width: 40%;background: #00BFFF;height: 100%;float: right;border-top-right-radius:10px;border-bottom-right-radius:10px;text-align: center;line-height: 60px"><a onclick="addCart()">结算</a></div>
+        </div>
+    </div>
+</body>
+<script>
+    var map=new Map();
+    function add(myid) {
+        let tempid=myid.id.toString();
+        let id=tempid.substring(3,tempid.length);
+        let num=document.getElementById("count"+id);
+        let sumdom=document.getElementById("sum");
+        let moneydom=document.getElementById("money"+id);
+        let sum=parseInt(sumdom.innerText);
+        let money=parseInt(moneydom.innerText);
+        let count=parseInt(num.innerText);
+        count=count+1;
+        num.innerHTML=count;
+        sumdom.innerHTML=sum+money;
+        map.set(id,count);
+    }
+    
+    function reduce(myid) {
+        let tempid=myid.id.toString();
+        let id=tempid.substring(2,tempid.length);
+        let num=document.getElementById("count"+id);
+        let sumdom=document.getElementById("sum");
+        let moneydom=document.getElementById("money"+id);
+        let sum=parseInt(sumdom.innerText);
+        let money=parseInt(moneydom.innerText);
+        let count=parseInt(num.innerText);
+        if(count!=0) {
+            count=count - 1;
+            num.innerHTML = count;
+            map.set(id,count);
+        }
+        if(sum>=money){
+            sumdom.innerHTML=sum-money;
+        }
+    }
+    let str="["
+    function addCart() {
+        map.forEach(function (v,k) {
+            str=str +"{\"id\":" +k+",\"count\":"+v+"},";
+        });
+        str=str.substring(0,str.length-1)+"]";
+        console.log(str);
+        $.ajax({
+            url : "/addCart",
+            type : "POST",
+            data : str,
+            dataType: 'json',
+            contentType:'application/json;charset=UTF-8',
+            success : function(result) {
+                window.location.href="http://localhost:8080/cart";
+            }
+        });
+    }
+</script>
+</html>

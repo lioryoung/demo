@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" th:href="@{css/amazeui.min.css}" />
+    <link rel="stylesheet" th:href="@{css/admin.css}">
+    <link rel="stylesheet" th:href="@{css/app.css}">
+    <script th:src="@{js/echarts.min.js}"></script>
+    <script th:src="@{js/jquery.min.js}"></script>
+    <script th:src="@{js/amazeui.min.js}"></script>
+    <script th:src="@{js/app.js}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body data-type="login">
+
+<div class="am-g myapp-login">
+    <div class="myapp-login-logo-block  tpl-login-max">
+        <div class="myapp-login-logo-text">
+            <a href="javascript:;" class="tpl-logo">
+                <img src="img/food.png" alt="" style="width: 90px;height: 90px">
+            </a>
+        </div>
+
+        <div class="login-font">
+             <span> 注册</span>
+        </div>
+        <div class="am-u-sm-10 login-am-center">
+            <form class="am-form">
+                <fieldset>
+                    <div class="am-form-group">
+                        <input type="text" class="" id="phone" placeholder="输入电话">
+                    </div>
+                    <div class="am-form-group">
+                        <input type="text" class="" id="alipay" placeholder="输入支付宝">
+                    </div>
+                    <div class="am-form-group">
+                        <input type="text" class="" id="name" placeholder="输入昵称">
+                    </div>
+                    <div class="am-form-group">
+                        <input type="text" class="" id="address" placeholder="输入地址">
+                    </div>
+                    <div class="am-form-group">
+                        <input type="password" class="" id="pwd" placeholder="输个密码吧">
+                    </div>
+                    <br>
+                    <button type="button" class="am-btn am-btn-default am-radius" onclick="re()"><a href="http://localhost:8080/login">注册</a></button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+<script>
+    function re() {
+        let phone=$("#phone").val();
+        let alipay=$("#alipay").val();
+        let name=$("#name").val();
+        let address=$("#address").val();
+        let password=$("#pwd").val();
+        $.post("/reAction",
+            {
+                phone:phone,
+                name:name,
+                alipay:alipay,
+                address:address,
+                password:password
+            },
+            function(data){
+                window.location.href = "http://localhost:8080/login";
+            });
+    }
+</script>
+</html>

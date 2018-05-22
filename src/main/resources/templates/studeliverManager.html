@@ -1,0 +1,217 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" th:href="@{~/css/amazeui.min.css}" />
+    <link rel="stylesheet" th:href="@{~/css/admin.css}">
+    <link rel="stylesheet" th:href="@{~/css/app.css}">
+    <link rel="stylesheet" th:href="@{~/css/materialize.min.css}">
+    <script th:src="@{~/js/echarts.min.js}"></script>
+    <script th:src="@{~/js/jquery.min.js}"></script>
+    <script th:src="@{~/js/amazeui.min.js}"></script>
+    <script th:src="@{~/js/app.js}"></script>
+    <script th:src="@{~/js/materialize.min.js}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body data-type="chart">
+
+
+<header class="am-topbar am-topbar-inverse admin-header">
+    <div class="am-topbar-brand">
+        <a href="javascript:;" class="tpl-logo">
+            <img src="../img/food.png" alt="" style="width: 90px;height: 90px">
+        </a>
+    </div>
+    <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+    </div>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+
+</header>
+
+
+
+
+
+<div class="tpl-page-container tpl-page-header-fixed">
+
+
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-title">
+            功能导航
+        </div>
+        <div class="tpl-left-nav-list">
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="http://localhost:8080/schoolOrder" class="nav-link">
+                        <i class="material-icons">star</i>
+                        <span>
+                            待确认订单
+                        </span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item">
+                    <a href="#" class="nav-link tpl-left-nav-link-list active">
+                        <i class="material-icons">book</i>
+                        <span>学生配送订单</span>
+                    </a>
+                </li>
+
+
+                <li class="tpl-left-nav-item">
+                    <a href="http://localhost:8080/foodmanager" class="nav-link tpl-left-nav-link-list">
+                        <i class="material-icons">device_hub</i>
+                        <span>菜品管理</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="tpl-content-wrapper">
+        <div class="tpl-content-page-title">
+            订单详情
+        </div>
+        <ol class="am-breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li class="am-active">配送清单</li>
+        </ol>
+        <div class="tpl-portlet-components">
+            <div class="portlet-title">
+                <div class="caption font-green bold">
+                    <button type="button" class="am-btn am-btn-primary" onclick="method5('tableExcel')" style="font-size: 16px">导出excel</button>
+                </div>
+            </div>
+            <div class="tpl-block">
+
+                <!--此部分数据请在 js文件夹下中的 app.js 中的 “百度图表A” 处修改数据 插件使用的是 百度echarts-->
+                <table class="am-table" style="font-size: 16px" id="tableExcel">
+                    <thead>
+                    <tr>
+                        <th>订单编号</th>
+                        <th>时间</th>
+                        <th>配送学生</th>
+                        <th>支付宝账号</th>
+                        <th>查看订单详情</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="foodIndent:${stuDelManList}">
+                        <tr>
+                            <td style="vertical-align: middle"><span th:text="${foodIndent.getIndent().getId()}"></span></td>
+                            <td style="vertical-align: middle"><span th:text="${foodIndent.getDate()}">小炒藕片</span></td>
+                            <td style="vertical-align: middle" ><span th:text="${foodIndent.getUser().getName()}">20</span></td>
+                            <td style="vertical-align: middle" th:text="${foodIndent.getUser().getAlipay()}">2</td>
+                            <td style="vertical-align: middle">
+                                <a th:href="${'http://localhost:8080/schoolorderdes/'+foodIndent.getIndent().getId()}">查看详情</a>
+                            </td>
+
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+</body>
+<script>
+    var idTmr;
+    function  getExplorer() {
+        var explorer = window.navigator.userAgent ;
+        //ie
+        if (explorer.indexOf("MSIE") >= 0) {
+            return 'ie';
+        }
+        //firefox
+        else if (explorer.indexOf("Firefox") >= 0) {
+            return 'Firefox';
+        }
+        //Chrome
+        else if(explorer.indexOf("Chrome") >= 0){
+            return 'Chrome';
+        }
+        //Opera
+        else if(explorer.indexOf("Opera") >= 0){
+            return 'Opera';
+        }
+        //Safari
+        else if(explorer.indexOf("Safari") >= 0){
+            return 'Safari';
+        }
+    }
+    function method5(tableid) {
+        if(getExplorer()=='ie')
+        {
+            var curTbl = document.getElementById(tableid);
+            var oXL = new ActiveXObject("Excel.Application");
+            var oWB = oXL.Workbooks.Add();
+            var xlsheet = oWB.Worksheets(1);
+            var sel = document.body.createTextRange();
+            sel.moveToElementText(curTbl);
+            sel.select();
+            sel.execCommand("Copy");
+            xlsheet.Paste();
+            oXL.Visible = true;
+
+            try {
+                var fname = oXL.Application.GetSaveAsFilename("Excel.xls", "Excel Spreadsheets (*.xls), *.xls");
+            } catch (e) {
+                print("Nested catch caught " + e);
+            } finally {
+                oWB.SaveAs(fname);
+                oWB.Close(savechanges = false);
+                oXL.Quit();
+                oXL = null;
+                idTmr = window.setInterval("Cleanup();", 1);
+            }
+
+        }
+        else
+        {
+            tableToExcel(tableid)
+        }
+    }
+    function Cleanup() {
+        window.clearInterval(idTmr);
+        CollectGarbage();
+    }
+    var tableToExcel = (function() {
+        var uri = 'data:application/vnd.ms-excel;base64,',
+            template = '<html><head><meta charset="UTF-8"></head><body><table>{table}</table></body></html>',
+            base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) },
+            format = function(s, c) {
+                return s.replace(/{(\w+)}/g,
+                    function(m, p) { return c[p]; }) }
+        return function(table, name) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+</script>
+</html>

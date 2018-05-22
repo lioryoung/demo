@@ -1,0 +1,185 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" th:href="@{~/css/amazeui.min.css}" />
+    <link rel="stylesheet" th:href="@{~/css/admin.css}">
+    <link rel="stylesheet" th:href="@{~/css/app.css}">
+    <link rel="stylesheet" th:href="@{~/css/materialize.min.css}">
+    <script th:src="@{~/js/echarts.min.js}"></script>
+    <script th:src="@{~/js/jquery.min.js}"></script>
+    <script th:src="@{~/js/amazeui.min.js}"></script>
+    <script th:src="@{~/js/app.js}"></script>
+    <script th:src="@{~/js/materialize.min.js}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body data-type="chart">
+
+
+<header class="am-topbar am-topbar-inverse admin-header">
+    <div class="am-topbar-brand">
+        <a href="javascript:;" class="tpl-logo">
+            <img src="../img/food.png" alt="" style="width: 90px;height: 90px">
+        </a>
+    </div>
+    <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+    </div>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+
+</header>
+
+
+
+
+
+<div class="tpl-page-container tpl-page-header-fixed">
+
+
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-title">
+            功能导航
+        </div>
+        <div class="tpl-left-nav-list">
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="http://localhost:8080/schoolOrder" class="nav-link">
+                        <i class="material-icons">star</i>
+                        <span>
+                            待确认订单
+                        </span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item">
+                    <a href="http://localhost:8080/studeliverManager" class="nav-link tpl-left-nav-link-list ">
+                        <i class="material-icons">book</i>
+                        <span>学生配送订单</span>
+                    </a>
+                </li>
+
+
+                <li class="tpl-left-nav-item">
+                    <a href="http://localhost:8080/foodmanager" class="nav-link tpl-left-nav-link-list">
+                        <i class="material-icons">device_hub</i>
+                        <span>菜品管理</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="tpl-content-wrapper">
+        <div class="tpl-content-page-title">
+            菜品管理
+        </div>
+        <ol class="am-breadcrumb">
+            <li><a href="#" class="am-icon-home">首页</a></li>
+            <li class="am-active">菜品管理</li>
+        </ol>
+        <div class="row">
+            <div class="am-u-lg-8 am-u-md-6 am-u-sm-12">
+                <div class="card-panel">
+                    <div class="tpl-block">
+                        <p></p>
+                        <!--此部分数据请在 js文件夹下中的 app.js 中的 “百度图表A” 处修改数据 插件使用的是 百度echarts-->
+                        <table class="am-table" style="font-size: 16px">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>菜名</th>
+                                <th>价格</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                            <th:block th:each="food:${managerFoodList}">
+                            <tr>
+                                <td><img th:src="@{${food.getImage()}}" style="height: 62px;width: 100px"></td>
+                                <td style="vertical-align: middle"><span th:text="${food.getName()}">小炒藕片</span></td>
+                                <td style="vertical-align: middle"><span th:text="${food.getPrice()}">20</span></td>
+                                <td style="vertical-align: middle"><a onclick="deleteItem(this)">删除</a></td>
+                            </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="am-u-lg-4 am-u-md-6 am-u-sm-12">
+                <div class="card-panel">
+                    <div class="tpl-block">
+                        <p>添加菜品</p>
+                        <!--此部分数据请在 js文件夹下中的 app.js 中的 “百度图表A” 处修改数据 插件使用的是 百度echarts-->
+                        <input type="text" class="" id="foodname" placeholder="输入菜名">
+                        <input type="text" class="" id="foodprice" placeholder="输入价格">
+                        <div class="am-form-group am-form-file">
+                            <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                <i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
+                            <input id="doc-form-file" type="file" onchange="upload()">
+                        </div>
+                        <p id="file-list"></p>
+                        <br>
+                        <button type="button" class="am-btn am-btn-primary" onclick="addItem(this)" th:id="${managerFoodList.size()+1}">上传</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+<script>
+    function upload() {
+        var animateimg = $("#doc-form-file").val();
+        console.log(animateimg);
+        document.getElementById("file-list").innerHTML=animateimg;
+    }
+    function upload() {
+        var animateimg = $("#f").val();
+    }
+    function deleteItem(myself) {
+        myself.parentNode.parentNode.parentNode.removeChild(myself.parentNode.parentNode);
+        alert("删除成功");
+    }
+    function addItem(myself) {
+        var id=myself.id;
+        var name=$("#foodname").val();
+        var price= $("#foodprice").val();
+        var trHtml="     <tr>\n" +
+            "                                <td><img src=\"img/food"+id+".png\" style=\"height: 62px;width: 100px\"></td>\n" +
+            "                                <td style=\"vertical-align: middle\">"+name+"</td>\n" +
+            "                                <td style=\"vertical-align: middle\">"+price+"</td>\n" +
+            "                                <td style=\"vertical-align: middle\"><a onclick=\"deleteItem(this)\">删除</a></td>\n" +
+            "                            </tr>"
+        $("#tableBody").append(trHtml);
+        $.post("/addFood",
+            {
+                price:price,
+                name:name
+            },
+            function(data){
+            alert("添加成功")
+            });
+    }
+</script>
+</html>
